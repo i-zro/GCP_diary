@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no, target-densitydpi=medium-dpi" />
+
+<link href="style_s.css" rel="stylesheet" />
+<title>추천 게시물</title>
+
+<style>
+
+img {
+max-width: 100%;
+height: auto;
+text-align: center;
+}
+
+.list {
+margin: 30px;
+}
+
+body {
+text-align: center;
+font-family: 'Do Hyeon', sans-serif;
+}
+ header {
+        background: #2c3e50;
+    height: auto;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+    font-family: 'Do Hyeon', sans-serif;
+        }
+.parent{
+    width: 100%;
+    margin: 10px auto;
+}
+
+.first {
+    border: 5px solid red;
+    float: left;
+    width:30%;
+    box-sizing: border-box;
+}
+
+.second{
+    border: 5px solid green;
+    float: left;
+    margin-left: 5%;
+    width:30%;
+    box-sizing: border-box;
+}
+
+.third{
+    border: 5px solid blue;
+    float: right;
+    width:30%;
+    box-sizing: border-box;
+}
+
+
+table.type03 {
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 1.5;
+  border-top: 1px solid #ccc;
+  border-left: 4px solid #2c3e50;
+  margin : 15px 0;
+}
+table.type03 th {
+  width: 147px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #153d73;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+
+}
+table.type03 td {
+  width: 349px;
+  padding: 2px;
+  vertical-align: top;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+body>h1 {
+text-align = center;
+}
+
+.main {
+min-width: 320px;
+max-width: 800px;
+padding: 10px;
+border-radius: 7px;;
+background: #ffffff;}
+
+section {
+display: none;
+padding: 0 0 0;
+border-top: 1px solid #ddd;}
+
+input {
+display: none;}
+
+label {
+display: inline-block;
+padding: 15px 25px;
+font-weight: 600;
+color: #bbb;
+border: 1px solid transparent;}
+
+label:hover {
+color: #2e9cdf;
+cursor: pointer;}
+
+/*input 클릭시, label 스타일*/
+input:checked + label {
+color: #555;
+border: 1px solid #ddd;
+border-top: 2px solid #2c3e50;
+border-bottom: 1px solid #ffffff;}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+display: block;}
+
+
+</style>
+
+
+<script language = "javascript">
+    var name = 'http://naver.com';
+</script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready( function() {
+
+$("#headers").load("./insta_happy.html");  // 원하는 파일 경로를 삽입하면 된다
+
+});
+</script>
+
+
+
+
+
+</head>
+
+
+<header>추천 게시물</header>
+
+
+<div class="main" style="text-align:center">
+
+<input id="tab1" type="radio" name="tabs" checked>
+<label for="tab1">Blog</label>
+
+<input id="tab2" type="radio" name="tabs">
+<label for="tab2">Twitter</label>
+
+<input id="tab3" type="radio", name="tabs">
+<label for="tab3">Instagram</label>
+
+
+<section id="content1" style="margin-bottom:20px;">
+<h1><img src="https://user-images.githubusercontent.com/71917474/120245765-389ce500-c2a9-11eb-9a0e-393cf0df400b.png" align="center" width="10%" height="10%" /> Blog</h1>
+
+{% for i in naver %}
+<table class="type03">
+
+{% for key, value in i.items() %}
+
+{% if key == "link" %}
+<tr>
+<th>{{ key }}</th>
+<td><a href = '{{value}}'>{{ value }}</a></td>
+</tr>
+
+{% else %}
+<tr>
+<th scope="row">{{ key }}</th>
+<td>{{ value }}</td>
+</tr>
+{% endif %}
+
+
+{% endfor %}
+</table>
+<br>
+{% endfor %}
+
+
+<br><br><br><br>
+</section>
+
+<section id="content2" style="margin-bottom:20px;">
+<h1><img src="https://user-images.githubusercontent.com/71917474/120523593-07d7bf80-c411-11eb-934f-b7967d80a534.png" align="center" width="10%" height="10%" /> Twitter</h1>
+{% for i in twitter %}
+<table class="type03">
+{% for key, value in i.items() %}
+<tr>
+<th scope="row">{{ key }}</th>
+<td>{{ value }}</td>
+</tr>
+{% endfor %}
+</table>
+<br>
+{% endfor %}
+
+
+<br><br><br><br>
+</section>
+    <!--<h1><img src="https://user-images.githubusercontent.com/71917474/120525039-a6b0eb80-c412-11eb-8f0c-4d80c3e47f14.jpg" align="center" width="10%" height="10%" /> Instagram</h1>-->
+<!--<img src="" align="center" />-->
+<section id="content3" style="margin-bottom:0;">
+<h1><img src="https://user-images.githubusercontent.com/71917474/120525039-a6b0eb80-c412-11eb-8f0c-4d80c3e47f14.jpg" align="center" width="10%" height="10%" /> Instagram</h1>
+
+    <embed src="https://www.instagram.com/p/CPx0_kvFuyB/embed/" display="inline" frameborder="0" scrolling="no" allowtransparency="true" height="1000px" width="50%"></iframe>
+
+    <embed src="https://www.instagram.com/p/CP4WfO5pJeW/embed/" display="inline" frameborder="0" scrolling="no" allowtransparency="true" height="1000px" width="50%"></iframe>
+
+    <embed src="https://www.instagram.com/p/CP2XE0GJwLM/embed/" display="inline" frameborder="0" scrolling="no" allowtransparency="true" height="1000px" width="50%"></iframe>
+
+    <embed src="https://www.instagram.com/p/CP3Qix1NTUH/embed/" display="inline" frameborder="0" scrolling="no" allowtransparency="true" height="1000px" width="50%"></iframe>
+
+    <embed src="https://www.instagram.com/p/CAFosinFvkz/embed/" display="inline" frameborder="0" scrolling="no" allowtransparency="true" height="1000px" width="50%"></iframe>
+
+<!--    -->
+</section>
+</div>
+</body>
+
+
+
+</html>
