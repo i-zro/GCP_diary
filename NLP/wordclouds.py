@@ -8,7 +8,7 @@ import matplotlib.font_manager as fm
 import re
 import collections
 
-from NLP.analysis import TextAnalysis
+from nlp.analysis import TextAnalysis
 
 ta = TextAnalysis('행복한 하루입니다.')
 

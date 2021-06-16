@@ -13,7 +13,7 @@ import sys
 import os
 import time
 from pytz import timezone
-from NLP.analysis import *
+from nlp.analysis import TextAnalysis
 import web
 from web.db import get_naver, get_twitter
 from jinja2 import Environment, FileSystemLoader
@@ -25,6 +25,7 @@ import datetime
 fmt = "%Y-%m-%d %H:%M:%S %Z%z"
 KST = datetime.datetime.now(timezone('Asia/Seoul'))
 fmt = "%Y/%m/%d %H:%M:%S"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -168,7 +169,7 @@ def receive():
 
 
 fmtt = "%Y%MYd%H%M%S"
-cred = credentials.Certificate("./serviceAccountKey.json")
+cred = credentials.Certificate(BASE_DIR+"/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
 
@@ -260,6 +261,9 @@ def total_diary(sender):
     e = u'{}'.format(sender)
     doc_ref = db.collection(u'total').document(e).set(data)
 
+@app.route('/senti')
+def senti():
+    return sentence_sentiment('안녕하세요')
 
 # 감성분석
 def sentence_sentiment(sentence):
@@ -270,19 +274,6 @@ def sentence_sentiment(sentence):
     }
     response = TextAnalysis(data)
     b = response.text_analysis()
-    if response[0] == 1:
-        return ('슬픔')
-    if response[1] == 1:
-        return ('중립')
-    if response[2] == 1:
-        return ('행복')
-    if response[3] == 1:
-        return ('불안')
-    if response[4] == 1:
-        return ('분노')
-    if response[5] == 1:
-        return ('예외')
-
     print(b)
     feel = ""
     word_list = []
@@ -301,6 +292,7 @@ def sentence_sentiment(sentence):
     print(feel)
     for num, i in enumerate(b['word_count']):
         word_list.append(i[0])
+        print(*word_list)
         if num >= 2:
             break
-    return feel, word_list
+    return """<html><p>%s %s</p></html>"""%(feel, *word_list)

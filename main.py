@@ -13,7 +13,7 @@ import sys
 import os
 import time
 from pytz import timezone
-from NLP.analysis import *
+from nlp.analysis import *
 import web
 from web.db import get_naver, get_twitter
 from jinja2 import Environment, FileSystemLoader
